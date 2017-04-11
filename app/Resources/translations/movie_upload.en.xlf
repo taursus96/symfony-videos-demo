@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="header">
+                <source>header</source>
+                <target>Upload a movie</target>
+            </trans-unit>
+            <trans-unit id="movie.title">
+                <source>movie.title</source>
+                <target>Title:</target>
+            </trans-unit>
+            <trans-unit id="movie.description">
+                <source>movie.description</source>
+                <target>Description:</target>
+            </trans-unit>
+            <trans-unit id="movie.select_file">
+                <source>movie.select_file</source>
+                <target>Select file</target>
+            </trans-unit>
+            <trans-unit id="movie.select_preview">
+                <source>movie.select_preview</source>
+                <target>Select preview image</target>
+            </trans-unit>
+            <trans-unit id="movie.access">
+                <source>movie.access</source>
+                <target>Access:</target>
+            </trans-unit>
+            <trans-unit id="movie.price">
+                <source>movie.price</source>
+                <target>Price:</target>
+            </trans-unit>
+
+            <trans-unit id="movie.upload">
+                <source>movie.upload</source>
+                <target>Upload</target>
+            </trans-unit>
+
+           <trans-unit id="movie.access.free">
+                <source>movie.access.free</source>
+                <target>Free</target>
+            </trans-unit>
+            <trans-unit id="movie.access.paid">
+                <source>movie.access.paid</source>
+                <target>Paid</target>
+            </trans-unit>
+            <trans-unit id="movie.access.private">
+                <source>movie.access.private</source>
+                <target>Private</target>
+            </trans-unit>
+
+            <trans-unit id="movie.selected_file_name">
+                <source>movie.selected_file_name</source>
+                <target>Selected file: </target>
+            </trans-unit>
+            <trans-unit id="movie.selected_preview_name">
+                <source>movie.selected_preview_name</source>
+                <target>Selected preview: </target>
+            </trans-unit>
+
+            <trans-unit id="movie.upload.progress">
+                <source>movie.upload.progress</source>
+                <target>Progress: </target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

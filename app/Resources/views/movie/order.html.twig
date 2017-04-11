@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'form-movie-order'}}) }}
+    <h2>{{ description }}</h2>
+    <div class="form-group">
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ "order.submit"|trans([], "movie_order") }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

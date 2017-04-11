@@ -1,0 +1,52 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.movie_access:
+        class:  AppBundle\Service\MovieAccessService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    app.movie_streaming:
+        class:  AppBundle\Service\MovieStreamingService
+    app.movie_views_counter:
+        class:  AppBundle\Service\MovieViewsCounterService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    app.voting:
+        class:  AppBundle\Service\VotingService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    app.movie_ordering:
+        class:  AppBundle\Service\MovieOrderingService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            movieAccessService: "@app.movie_access"
+    app.dotpay_movie_order_resolver:
+        class:  AppBundle\Service\DotpayMovieOrderResolverService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            movieOrderingService: "@app.movie_ordering"
+            acceptedIpAdresses: "%dotpay_accepted_ip_adresses%"
+            pin: "%dotpay_pin%"
+    app.form.movie_access_type:
+        class: AppBundle\Form\MovieAccessType
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+    app.listener.movie:
+        class:  AppBundle\Listener\MovieListener
+        arguments:
+            moviesDirectory: "%movies_directory%"
+            previewsDirectory: "%movie_previews_directory%"
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+    app.listener.vote:
+        class:  AppBundle\Listener\VoteListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

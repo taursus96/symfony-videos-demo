@@ -1,0 +1,25 @@
+@import 'mixins';
+
+.form-movie-upload {
+    .shadowed-bordered-container();
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+
+    input[type=file] {
+        display: none;
+    }
+
+    .movie-upload-progress {
+        margin-top: 10px;
+
+        .progress-bar {
+            color: black;
+            text-align: center;
+        }
+    }
+
+    .form-movie-upload-error {
+        text-align: left;
+    }
+}

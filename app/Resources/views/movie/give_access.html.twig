@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'form-give-access'}}) }}
+    <div class="form-group">
+        <label>
+            {{ "movie_access.user"|trans([], "movie_access") }}
+        </label>
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.user) }}
+    </div>
+
+    <div>
+        <button type="submit">{{ "movie_access.submit"|trans([], "movie_access") }}</button>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article class="movie" data-movie-id="{{ movie.id }}">
+        <div class="col-md-4">
+            <div id="movie-info">
+                <h1>{{ movie.title }}</h1>
+
+                <div class="movie-views">
+                    {{ "views"|trans([], "movie_view") }}
+                    {{ movie.views }}
+                </div>
+
+                <div class="movie-votes">
+                    <div data-vote-type="{{ VOTE_TYPE_THUMBS_UP }}" class="glyphicon glyphicon-thumbs-up movie-vote-button" role="button"></div>
+                    <span id="movie-vote-thumbs-up-count">{{ movie.thumbsUp }}</span>
+
+                    <div data-vote-type="{{ VOTE_TYPE_THUMBS_DOWN }}" class="glyphicon glyphicon-thumbs-down movie-vote-button" role="button"></div>
+                    <span id="movie-vote-thumbs-down-count">{{ movie.thumbsDown }}</span>
+                </div>
+                <div class="clear-fix"></div>
+
+                {% if showPreview %}
+                    <div class="movie-order">
+                        <span class="movie-order-price">
+                            {{ "price"|trans([], "movie_view") }}
+                            {{ movie.priceAsFloat|number_format(2) }}
+                            {{ "price.currency"|trans([], "movie_view") }}
+                        </span>
+                        <a href="{{ path('movie_order', {id: movie.id}) }}" class="btn btn-primary movie-order-button">
+                            {{ "order.button"|trans([], "movie_view") }}
+                        </a>
+                    </div>
+                {% endif %}
+                {% if showSettings %}
+                    <div class="movie-settings-button-container">
+                        <a href="{{ path('movie_settings', {id: movie.id}) }}" class="btn btn-primary movie-settings-button">
+                            {{ "settings.button"|trans([], "movie_view") }}
+                        </a>
+                    </div>
+                {% endif %}
+                <hr/>
+                <p class="movie-description">{{ movie.description }}</p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="movie-video-player-container">
+                {% if showPreview %}
+                    <img src="/movie/stream/preview/{{ movie.id }}" class="movie-preview-image"/>
+                {% else %}
+                    <video controls class="movie-video-player">
+                        <source src="/movie/stream/{{ movie.id }}">
+                    </video>
+                {% endif %}
+            </div>
+            <div class="movie-comments-container">
+                <h2 class="text-center">{{ "header"|trans([], "movie_comment") }}</h2>
+
+                {% if not showPreview %}
+                    {{ form_start(commentForm, {'attr': {'class': 'form-movie-comment'}}) }}
+                    <div class="form-group">
+                        <label>
+                            {{ "comment.content"|trans([], "movie_comment") }}
+                        </label>
+                        {{ form_widget(commentForm.content, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(commentForm.content) }}
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary">{{ "comment.submit"|trans([], "movie_comment") }}</button>
+                    </div>
+                    {{ form_end(commentForm) }}
+                {% endif %}
+
+                <div class="clear-fix"></div>
+                <hr/>
+
+                <div class="movie-comments">
+                    {% for comment in comments %}
+                        <div class="movie-comment-container" data-comment-id="{{ comment.id }}">
+                            <div class="movie-comment-info">
+                                <span class="movie-comment-publisher">{{ comment.publisher.username }}</span>
+                                <span class="movie-comment-published-at">({{ comment.publishedAt|date('Y-m-d H:i:s') }})</span>
+
+                                <div class="movie-comment-votes">
+                                    <div class="movie-comment-vote-button glyphicon glyphicon-thumbs-up" data-vote-type="{{ VOTE_TYPE_THUMBS_UP }}" role="button"></div>
+                                    <span class="movie-comment-vote-thumbs-up-count">{{ comment.thumbsUp }}</span>
+
+                                    <div class="movie-comment-vote-button glyphicon glyphicon-thumbs-down" data-vote-type="{{ VOTE_TYPE_THUMBS_DOWN }}" role="button"></div>
+                                    <span class="movie-comment-vote-thumbs-down-count">{{ comment.thumbsDown }}</span>
+                                </div>
+                            </div>
+                            <div class="movie-comment-content">{{ comment.content }}</div>
+                        </div>
+                    {% else %}
+                        {{ "no_comments"|trans([], "movie_comment") }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </article>
+
+{% endblock %}
+{% block javascripts %}
+    {% if not showPreview %}
+        <script src="{{ asset('dist/js/movie_view.js') }}"></script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+@import 'mixins';
+
+#movies-list {
+    padding-top: 15px;
+}
+
+.movies-list-movie {
+    .shadowed-bordered-container();
+    transition: 0.1s all ease;
+
+    .movies-list-movie-preview-image {
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    &:hover {
+        box-shadow: 15px 15px 15px #b9b9b9;
+        border: 1px solid #99d9ff;
+        outline: 1px solid #84b3d0;
+        transform: translateY(-2px) scale(1.01);
+    }
+}

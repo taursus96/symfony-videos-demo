@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="header">
+                <source>header</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="user.username">
+                <source>user.username</source>
+                <target>Username:</target>
+            </trans-unit>
+            <trans-unit id="user.password">
+                <source>user.password</source>
+                <target>Password:</target>
+            </trans-unit>
+            <trans-unit id="user.submit">
+                <source>user.submit</source>
+                <target>Log in</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,76 @@
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            {% block title %}Welcome!{% endblock %}
+        </title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {% block nav %}
+            <nav id="nav-shadowed-bordered" class="navbar navbar-default navbar-fixed nav-shadowed-bordered">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">{{ 'nav.brand'|trans([], 'nav')}}</a>
+                    </div>
+
+                    <ul class="nav navbar-nav">
+                        {% if app.user %}
+                            <li class="{% if currentPath == path('movie_upload') %}active{% endif %}">
+                                <a href="{{ path('movie_upload') }}">{{ 'nav.movie.upload'|trans([], 'nav')}}</a>
+                            </li>
+                            <li class="{% if currentPath == path('my_movies') %}active{% endif %}">
+                                <a href="{{ path('my_movies') }}">{{ 'nav.my_movies'|trans([], 'nav')}}</a>
+                            </li>
+                            <li>
+                                <a href="{{ logout_path('main') }}">{{ 'nav.logout'|trans([], 'nav')}}</a>
+                            </li>
+                        {% else %}
+                            <li class="{% if currentPath == path('login') %}active{% endif %}">
+                                <a href="{{ path('login') }}">{{ 'nav.login'|trans([], 'nav')}}</a>
+                            </li>
+                            <li class="{% if currentPath == path('registration') %}active{% endif %}">
+                                <a href="{{ path('registration') }}">{{ 'nav.registration'|trans([], 'nav')}}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <form action="{{ path('movies_search') }}" method="post" class="navbar-form navbar-right form-search">
+                        <input name="search" type="text" class="form-control" placeholder="{{ 'nav.search.placeholder'|trans([], 'nav')}}">
+                    </form>
+                </div>
+            </nav>
+        {% endblock %}
+
+        <div id="body" class="container">
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert alert-warning">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}{% endblock %}
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">&copy;
+                    {{ 'footer.copy'|trans([], 'footer')}}</p>
+            </div>
+        </footer>
+    </body>
+</html>

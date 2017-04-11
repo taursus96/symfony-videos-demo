@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for movie in movies %}
+        <div class="col-md-4">
+            <a href="{{ path('movie', {id: movie.id}) }}">
+                <div class="my-movies-movie">
+                    <h2>{{ movie.title }}</h2>
+                    <img src="/movie/stream/preview/{{ movie.id }}" class="my-movies-movie-preview-image"/>
+                </div>
+            </a>
+        </div>
+
+    {% endfor %}
+{% endblock %}

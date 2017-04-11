@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="views">
+                <source>views</source>
+                <target>Views:</target>
+            </trans-unit>
+            <trans-unit id="order.button">
+                <source>order.button</source>
+                <target>Order</target>
+            </trans-unit>
+            <trans-unit id="settings.button">
+                <source>settings.button</source>
+                <target>Settings</target>
+            </trans-unit>
+            <trans-unit id="price">
+                <source>price</source>
+                <target>Price: </target>
+            </trans-unit>
+            <trans-unit id="price.currency">
+                <source>price.currency</source>
+                <target>PLN</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'class': 'form-movie-upload'}}) }}
+    <h1>
+        {{ "header"|trans([], "movie_upload") }}
+    </h1>
+    <br/>
+    <div class="form-group">
+        <label>
+            {{ "movie.title"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        <div id="form-movie-upload-errors-title" class="form-movie-upload-error">
+            {{ form_errors(form.title) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>
+            {{ "movie.description"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        <div id="form-movie-upload-errors-description" class="form-movie-upload-error">
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div id="movie-selected-file-container">
+            <b>{{ "movie.selected_file_name"|trans([], "movie_upload") }}</b>
+            <span id="movie-selected-file-name"></span>
+        </div>
+
+        <label class="btn btn-info btn-file form-control">
+            {{ "movie.select_file"|trans([], "movie_upload") }}
+            {{ form_widget(form.file) }}
+        </label>
+        <div id="form-movie-upload-errors-file" class="form-movie-upload-error">
+            {{ form_errors(form.file) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div id="movie-selected-preview-container">
+            <b>{{ "movie.selected_preview_name"|trans([], "movie_upload") }}</b>
+            <span id="movie-selected-preview-name"></span>
+        </div>
+
+        <label class="btn btn-info btn-file form-control">
+            {{ "movie.select_preview"|trans([], "movie_upload") }}
+            {{ form_widget(form.preview) }}
+        </label>
+        <div id="form-movie-upload-errors-preview" class="form-movie-upload-error">
+            {{ form_errors(form.preview) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>
+            {{ "movie.access"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.access, {'attr': {'class': 'form-control'}}) }}
+        <div id="form-movie-upload-errors-access" class="form-movie-upload-error">
+            {{ form_errors(form.access) }}
+        </div>
+    </div>
+
+    <div id="form-movie-price-group" class="form-group">
+        <label>
+            {{ "movie.price"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+        <div id="form-movie-upload-errors-price" class="form-movie-upload-error">
+            {{ form_errors(form.price) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary form-control">{{ "movie.upload"|trans([], "movie_upload") }}</button>
+
+    <div class="movie-upload-progress hidden">
+        <strong>{{ "movie.upload.progress"|trans([], "movie_upload") }}</strong>
+        <div class="progress">
+            <div class="progress-bar">
+                <span class="progress-value"></span>%
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var MOVIE_ACCESS_TYPE_PAID = {{ MOVIE_ACCESS_TYPE_PAID }};
+    </script>
+    <script src="{{ asset('dist/js/form_movie_access_observer.js') }}"></script>
+    <script src="{{ asset('dist/js/form_movie_upload.js') }}"></script>
+{% endblock %}

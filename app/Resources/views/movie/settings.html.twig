@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'class': 'form-movie-settings'}}) }}
+    <h1>
+        {{ "header"|trans([], "movie_settings") }}
+    </h1>
+    <br/>
+    <div class="form-group">
+        <label>
+            {{ "movie.title"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+
+    <div class="form-group">
+        <label>
+            {{ "movie.description"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="form-group">
+        <label>
+            {{ "movie.access"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.access, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.access) }}
+    </div>
+
+    <div id="form-movie-price-group" class="form-group">
+        <label>
+            {{ "movie.price"|trans([], "movie_upload") }}
+        </label>
+        {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.price) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary form-control">{{ "movie.update"|trans([], "movie_settings") }}</button>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var MOVIE_ACCESS_TYPE_PAID = {{ MOVIE_ACCESS_TYPE_PAID }};
+    </script>
+    <script src="{{ asset('dist/js/form_movie_access_observer.js') }}"></script>
+{% endblock %}

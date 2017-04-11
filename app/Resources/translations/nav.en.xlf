@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="nav.brand">
+                <source>nav.brand</source>
+                <target>Movies</target>
+            </trans-unit>
+            <trans-unit id="nav.login">
+                <source>nav.login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="nav.registration">
+                <source>nav.registration</source>
+                <target>Registration</target>
+            </trans-unit>
+            <trans-unit id="nav.movie.upload">
+                <source>nav.movie.upload</source>
+                <target>Upload</target>
+            </trans-unit>
+            <trans-unit id="nav.my_movies">
+                <source>nav.my_movies</source>
+                <target>My movies</target>
+            </trans-unit>
+            <trans-unit id="nav.logout">
+                <source>nav.logout</source>
+                <target>Logout</target>
+            </trans-unit>
+            <trans-unit id="nav.free.top.voted">
+                <source>nav.free.top.voted</source>
+                <target>Free - top voted</target>
+            </trans-unit>
+            <trans-unit id="nav.free.top.viewed">
+                <source>nav.free.top.viewed</source>
+                <target>Free - top viewed</target>
+            </trans-unit>
+            <trans-unit id="nav.paid.top.voted">
+                <source>nav.paid.top.voted</source>
+                <target>Paid - top voted</target>
+            </trans-unit>
+            <trans-unit id="nav.paid.top.viewed">
+                <source>nav.paid.top.viewed</source>
+                <target>Paid - top viewed</target>
+            </trans-unit>
+            <trans-unit id="nav.search.placeholder">
+                <source>nav.search.placeholder</source>
+                <target>Search...</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

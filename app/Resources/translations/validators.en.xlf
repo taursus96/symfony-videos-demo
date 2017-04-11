@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="movie.title.min_length">
+                <source>movie.title.min_length</source>
+                <target>Title must have at least {{ limit }} characters.</target>
+            </trans-unit>
+            <trans-unit id="movie.title.max_length">
+                <source>movie.title.max_length</source>
+                <target>Title must have at most {{ limit }} characters.</target>
+            </trans-unit>
+
+            <trans-unit id="movie.description.not_blank">
+                <source>movie.description.not_blank</source>
+                <target>Please enter a movie description.</target>
+            </trans-unit>
+            <trans-unit id="movie.description.min_length">
+                <source>movie.description.min_length</source>
+                <target>Description must have at least {{ limit }} characters.</target>
+            </trans-unit>
+            <trans-unit id="movie.description.max_length">
+                <source>movie.description.max_length</source>
+                <target>Description must have at most {{ limit }} characters.</target>
+            </trans-unit>
+
+            <trans-unit id="movie.file.not_blank">
+                <source>movie.file.not_blank</source>
+                <target>Please upload a valid movie file.</target>
+            </trans-unit>
+            <trans-unit id="movie.file.invalid_mime_type">
+                <source>movie.file.invalid_mime_type</source>
+                <target>Movie must be mp4 file.</target>
+            </trans-unit>
+
+            <trans-unit id="movie.preview.not_blank">
+                <source>movie.preview.not_blank</source>
+                <target>Please upload a valid preview image.</target>
+            </trans-unit>
+            <trans-unit id="movie.preview.invalid_mime_type">
+                <source>movie.preview.invalid_mime_type</source>
+                <target>Preview image must be jpg, png or gif file.</target>
+            </trans-unit>
+
+            <trans-unit id="movie.access.not_blank">
+                <source>movie.access.not_blank</source>
+                <target>Please select a movie access.</target>
+            </trans-unit>
+            <trans-unit id="movie.access.invalid_access">
+                <source>movie.access.invalid_access</source>
+                <target>Please select a valid movie access.</target>
+            </trans-unit>
+
+            <trans-unit id="movie.price.not_blank">
+                <source>movie.price.not_blank</source>
+                <target>Please enter a movie price.</target>
+            </trans-unit>
+            <trans-unit id="movie.price.lower_or_equal_zero">
+                <source>movie.price.invalid_access</source>
+                <target>Movie price has to be greater than zero.</target>
+            </trans-unit>
+
+            <trans-unit id="movie_comment.content.min_length">
+                <source>movie_comment.content.min_length</source>
+                <target>Comment must have at least {{ limit }} characters.</target>
+            </trans-unit>
+            <trans-unit id="movie_comment.content.max_length">
+                <source>movie_comment.content.max_length</source>
+                <target>Comment must have at most {{ limit }} characters.</target>
+            </trans-unit>
+
+
+            <trans-unit id="user.email.exists">
+                <source>user.email.exists</source>
+                <target>Email already taken.</target>
+            </trans-unit>
+            <trans-unit id="user.username.exists">
+                <source>user.username.exists</source>
+                <target>Username already taken.</target>
+            </trans-unit>
+
+            <trans-unit id="user.username.min_length">
+                <source>user.username.min_length</source>
+                <target>Username has to have at least {{ limit }} characters.</target>
+            </trans-unit>
+            <trans-unit id="user.username.max_length">
+                <source>user.username.max_length</source>
+                <target>Username has to have at most {{ limit }} characters.</target>
+            </trans-unit>
+            <trans-unit id="user.username.blank">
+                <source>user.username.blank</source>
+                <target>Please enter a username.</target>
+            </trans-unit>
+
+            <trans-unit id="user.email.blank">
+                <source>user.email.blank</source>
+                <target>Please enter an email.</target>
+            </trans-unit>
+            <trans-unit id="user.email.invalid">
+                <source>user.email.invalid</source>
+                <target>Please enter a valid email.</target>
+            </trans-unit>
+
+            <trans-unit id="user.password.blank">
+                <source>user.password.blank</source>
+                <target>Please enter a password.</target>
+            </trans-unit>
+            <trans-unit id="user.password.max_length">
+                <source>user.password.max_length</source>
+                <target>Password has to have at most {{ limit }} characters.</target>
+            </trans-unit>
+
+            <trans-unit id="movie_access.user.doesnt_exist">
+                <source>movie_access.user.doesnt_exist</source>
+                <target>Given user doesn't exist.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

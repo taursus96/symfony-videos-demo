@@ -1,0 +1,14 @@
+{% block body %}
+    {% for movie in movies %}
+        <div class="col-md-4">
+            <a href="{{ path('movie', {id: movie.id}) }}">
+                <div class="movies-list-movie">
+                    <h2 class="movies-list-movie-title">{{ movie.title }}</h2>
+                    <img src="/movie/stream/preview/{{ movie.id }}" class="movies-list-movie-preview-image"/>
+                </div>
+            </a>
+        </div>
+    {% else %}
+        {{ "no_movies_found"|trans([], "movies_list") }}
+    {% endfor %}
+{% endblock %}

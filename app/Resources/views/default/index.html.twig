@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul id="movies-lists-nav" class="nav nav-tabs">
+        <li id="movies-list-free-top-voted-nav">
+            <a href="#free-top-voted">{{ 'nav.free.top.voted'|trans([], 'nav')}}</a>
+        </li>
+        <li id="movies-list-free-top-viewed-nav">
+            <a href="#free-top-viewed">{{ 'nav.free.top.viewed'|trans([], 'nav')}}</a>
+        </li>
+        <li id="movies-list-paid-top-voted-nav">
+            <a href="#paid-top-voted">{{ 'nav.paid.top.voted'|trans([], 'nav')}}</a>
+        </li>
+        <li id="movies-list-paid-top-viewed-nav">
+            <a href="#paid-top-viewed">{{ 'nav.paid.top.viewed'|trans([], 'nav')}}</a>
+        </li>
+    </ul>
+    <div id="movies-list"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('dist/js/homepage_movie_lists.js') }}"></script>
+{% endblock %}

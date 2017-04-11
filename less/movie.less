@@ -1,0 +1,106 @@
+@import 'mixins';
+
+.movie {
+    .movie-video-player-container {
+        .shadowed-bordered-container(0);
+
+        .movie-video-player {
+            margin: 0 auto;
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .movie-preview-image {
+        max-width: 100%;
+    }
+
+    #movie-info {
+        .shadowed-bordered-container();
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .movie-votes {
+            font-size: 1.2em;
+            display: inline-block;
+            float: right;
+
+            #movie-vote-thumbs-down {
+                padding-left: 10px;
+            }
+        }
+
+        .movie-views {
+            font-size: 1.2em;
+            display: inline-block;
+            float: left;
+        }
+
+        .movie-order {
+            margin-top: 20px;
+
+            .movie-order-price {
+                font-size: 1.4em;
+            }
+
+            .movie-order-button {
+                float: right;
+            }
+        }
+
+        .movie-settings-button-container {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        hr {
+            border-top: 1px solid #bdbdbd;
+        }
+
+        .movie-description {
+            white-space: pre-wrap;
+        }
+    }
+
+    .movie-comments-container {
+        .shadowed-bordered-container();
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .form-movie-comment {
+            button[type=submit] {
+                width: inherit;
+                float: right;
+            }
+
+            textarea {
+                resize: none;
+            }
+        }
+
+        .movie-comment-container {
+            margin-bottom: 20px;
+
+            .movie-comment-publisher {
+                font-weight: bold;
+            }
+
+            .movie-comment-votes {
+                float: right;
+
+                .movie-comment-vote-thumbs-down {
+                    padding-left: 10px;
+                }
+            }
+
+            .movie-comment-content {
+                padding: 10px 20px;
+                white-space: pre-wrap;
+            }
+        }
+    }
+}
