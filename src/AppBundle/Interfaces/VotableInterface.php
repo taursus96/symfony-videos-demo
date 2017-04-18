@@ -2,7 +2,7 @@
 
 namespace AppBundle\Interfaces;
 
-interface IVotable
+interface VotableInterface
 {
     public function getThumbsDown(): int;
     public function setThumbsDown(int $thumbsDown);
@@ -14,5 +14,5 @@ interface IVotable
     public function getVoteVotablePropertyName(): string;
     public function getVoteVoterPropertyName(): string;
 
-    public function createNewVoteEntity(): IVote;
+    public function createNewVoteEntity(): VoteInterface;
 }

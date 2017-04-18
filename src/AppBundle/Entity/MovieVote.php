@@ -7,14 +7,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Movie;
 
-use AppBundle\Interfaces\IVote;
-use AppBundle\Interfaces\IVoter;
-use AppBundle\Interfaces\IVotable;
+use AppBundle\Interfaces\VoteInterface;
+use AppBundle\Interfaces\VoterInterface;
+use AppBundle\Interfaces\VotableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MovieVoteRepository")
  */
-class MovieVote implements IVote
+class MovieVote implements VoteInterface
 {
     /**
      * @var int
@@ -48,7 +48,7 @@ class MovieVote implements IVote
      */
     private $movie;
 
-    public function setVotable(IVotable $votable)
+    public function setVotable(VotableInterface $votable)
     {
         $this->setMovie($votable);
 
@@ -96,7 +96,7 @@ class MovieVote implements IVote
      *
      * @return MovieVote
      */
-    public function setVoter(IVoter $voter)
+    public function setVoter(VoterInterface $voter)
     {
         $this->voter = $voter;
 
@@ -137,7 +137,7 @@ class MovieVote implements IVote
         return $this->movie;
     }
 
-    public function getVotable(): IVotable
+    public function getVotable(): VotableInterface
     {
         return $this->getMovie();
     }

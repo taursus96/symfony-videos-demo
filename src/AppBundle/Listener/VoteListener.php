@@ -7,8 +7,8 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 
 use Doctrine\ORM\UnitOfWork;
 
-use AppBundle\Interfaces\IVote;
-use AppBundle\Interfaces\IVotable;
+use AppBundle\Interfaces\VoteInterface;
+use AppBundle\Interfaces\VotableInterface;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -23,30 +23,30 @@ class VoteListener
         $this->uow = $this->em->getUnitOfWork();
 
         foreach ($this->uow->getScheduledEntityInsertions() as $entity) {
-            if ($entity instanceof IVote) {
+            if ($entity instanceof VoteInterface) {
                 $this->onInsertVote($entity);
             }
         }
 
         foreach ($this->uow->getScheduledEntityUpdates() as $entity) {
-            if ($entity instanceof IVote) {
+            if ($entity instanceof VoteInterface) {
                 $this->onUpdateVote($entity);
             }
         }
 
         foreach ($this->uow->getScheduledEntityDeletions() as $entity) {
-            if ($entity instanceof IVote) {
+            if ($entity instanceof VoteInterface) {
                 $this->onDeleteVote($entity);
             }
         }
     }
 
-    protected function onInsertVote(IVote $vote)
+    protected function onInsertVote(VoteInterface $vote)
     {
         $this->applyVote($vote->getVotable(), $vote->getVote());
     }
 
-    protected function onUpdateVote(IVote $vote)
+    protected function onUpdateVote(VoteInterface $vote)
     {
         $changes = $this->uow->getEntityChangeSet($vote);
 
@@ -57,18 +57,18 @@ class VoteListener
         }
     }
 
-    protected function onDeleteVote(IVote $vote)
+    protected function onDeleteVote(VoteInterface $vote)
     {
         $this->applyVote($vote->getVotable(), $vote->getVote(), -1);
     }
 
-    protected function applyVote(IVotable $votable, int $vote, int $change = 1)
+    protected function applyVote(VotableInterface $votable, int $vote, int $change = 1)
     {
         switch ($vote) {
-            case IVote::THUMBS_DOWN:
+            case VoteInterface::THUMBS_DOWN:
                 $votable->setThumbsDown($votable->getThumbsDown() + $change);
                 break;
-            case IVote::THUMBS_UP:
+            case VoteInterface::THUMBS_UP:
                 $votable->setThumbsUp($votable->getThumbsUp() + $change);
                 break;
         }

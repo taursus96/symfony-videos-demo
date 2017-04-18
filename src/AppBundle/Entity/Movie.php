@@ -13,13 +13,13 @@ use AppBundle\Entity\MovieOrder;
 use AppBundle\Entity\MovieAccess;
 use AppBundle\Entity\MovieComment;
 
-use AppBundle\Interfaces\IVote;
-use AppBundle\Interfaces\IVotable;
+use AppBundle\Interfaces\VoteInterface;
+use AppBundle\Interfaces\VotableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MovieRepository")
  */
-class Movie implements IVotable
+class Movie implements VotableInterface
 {
     const ACCESS_FREE = 1;
     const ACCESS_PAID = 2;
@@ -192,7 +192,7 @@ class Movie implements IVotable
         return 'voter';
     }
 
-    public function createNewVoteEntity(): IVote
+    public function createNewVoteEntity(): VoteInterface
     {
         return new MovieVote();
     }

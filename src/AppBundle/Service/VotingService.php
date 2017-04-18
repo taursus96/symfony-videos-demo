@@ -4,9 +4,9 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 
-use AppBundle\Interfaces\IVote;
-use AppBundle\Interfaces\IVotable;
-use AppBundle\Interfaces\IVoter;
+use AppBundle\Interfaces\VoteInterface;
+use AppBundle\Interfaces\VotableInterface;
+use AppBundle\Interfaces\VoterInterface;
 
 class VotingService
 {
@@ -18,13 +18,13 @@ class VotingService
         $this->em = $entityManager;
     }
 
-    public function vote(IVoter $voter = null, IVotable $votable, int $voteType): bool
+    public function vote(VoterInterface $voter = null, VotableInterface $votable, int $voteType): bool
     {
         if (!$voter || !$votable || !$this->isVoteTypeCorrect($voteType)) {
             return false;
         }
 
-        /** @var IVote $vote */
+        /** @var VoteInterface $vote */
         $vote = $this->em->getRepository($votable->getVoteRepositoryName())->findOneBy([
             $votable->getVoteVotablePropertyName() => $votable,
             $votable->getVoteVoterPropertyName() => $voter
@@ -40,12 +40,12 @@ class VotingService
 
     protected function isVoteTypeCorrect(int $voteType)
     {
-        return in_array($voteType, [IVote::THUMBS_DOWN, IVote::THUMBS_UP]);
+        return in_array($voteType, [VoteInterface::THUMBS_DOWN, VoteInterface::THUMBS_UP]);
     }
 
-    protected function createVote(IVotable $votable, IVoter $voter): IVote
+    protected function createVote(VotableInterface $votable, VoterInterface $voter): VoteInterface
     {
-        /** @var IVote $vote */
+        /** @var VoteInterface $vote */
         $vote = $votable->createNewVoteEntity();
         $vote->setVotable($votable);
         $vote->setVoter($voter);

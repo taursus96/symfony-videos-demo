@@ -9,13 +9,13 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\MovieCommentVote;
 
-use AppBundle\Interfaces\IVote;
-use AppBundle\Interfaces\IVotable;
+use AppBundle\Interfaces\VoteInterface;
+use AppBundle\Interfaces\VotableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MovieCommentRepository")
  */
-class MovieComment implements IVotable
+class MovieComment implements VotableInterface
 {
     /**
      * @var int
@@ -104,7 +104,7 @@ class MovieComment implements IVotable
         return 'voter';
     }
 
-    public function createNewVoteEntity(): IVote
+    public function createNewVoteEntity(): VoteInterface
     {
         return new MovieCommentVote();
     }

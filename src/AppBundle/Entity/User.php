@@ -15,7 +15,7 @@ use AppBundle\Entity\MovieAccess;
 use AppBundle\Entity\MovieComment;
 use AppBundle\Entity\MovieCommentVote;
 
-use AppBundle\Interfaces\IVoter;
+use AppBundle\Interfaces\VoterInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -27,7 +27,7 @@ use AppBundle\Interfaces\IVoter;
  * @UniqueEntity(fields="username", message="user.username.exists")
  */
 
-class User implements UserInterface, IVoter
+class User implements UserInterface, VoterInterface
 {
     /**
      * @var int

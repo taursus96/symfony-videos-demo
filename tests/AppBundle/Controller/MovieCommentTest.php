@@ -11,7 +11,7 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\MovieComment;
 
-use AppBundle\Interfaces\IVote;
+use AppBundle\Interfaces\VoteInterface;
 
 class MovieCommentTest extends TestCaseBase
 {
@@ -108,7 +108,7 @@ class MovieCommentTest extends TestCaseBase
         $thumbsUp = $comment->getThumbsUp();
         $thumbsDown = $comment->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), IVote::THUMBS_UP));
+        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), VoteInterface::THUMBS_UP));
         $this->em->refresh($comment);
         $this->assertTrue($comment->getThumbsUp() === $thumbsUp + 1);
         $this->assertTrue($comment->getThumbsDown() === $thumbsDown);
@@ -116,7 +116,7 @@ class MovieCommentTest extends TestCaseBase
         $thumbsUp = $comment->getThumbsUp();
         $thumbsDown = $comment->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), IVote::THUMBS_DOWN));
+        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), VoteInterface::THUMBS_DOWN));
         $this->em->refresh($comment);
         $this->assertTrue($comment->getThumbsUp() === $thumbsUp - 1);
         $this->assertTrue($comment->getThumbsDown() === $thumbsDown + 1);
@@ -124,7 +124,7 @@ class MovieCommentTest extends TestCaseBase
         $thumbsUp = $comment->getThumbsUp();
         $thumbsDown = $comment->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), IVote::THUMBS_UP));
+        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), VoteInterface::THUMBS_UP));
         $this->em->refresh($comment);
         $this->assertTrue($comment->getThumbsUp() === $thumbsUp + 1);
         $this->assertTrue($comment->getThumbsDown() === $thumbsDown - 1);
@@ -150,7 +150,7 @@ class MovieCommentTest extends TestCaseBase
 
         /** @var Client $client */
         $client = self::createClient(); //create new client without authentication
-        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), IVote::THUMBS_DOWN));
+        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), VoteInterface::THUMBS_DOWN));
         $this->assertFalse($client->getResponse()->isSuccessful());
     }
 
@@ -173,7 +173,7 @@ class MovieCommentTest extends TestCaseBase
         $comment = $this->em->getRepository('AppBundle:MovieComment')->findOneByContent($content);
 
         $this->loginUser('test-with-no-access-to-private-and-paid-movies', $client);
-        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), IVote::THUMBS_DOWN));
+        $client->request('GET', sprintf('/movie/comment/vote/%d/%d', $comment->getId(), VoteInterface::THUMBS_DOWN));
         $this->assertFalse($client->getResponse()->isSuccessful());
     }
 }

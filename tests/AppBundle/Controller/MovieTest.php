@@ -14,7 +14,7 @@ use Symfony\Component\Form\Form;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Movie;
 
-use AppBundle\Interfaces\IVote;
+use AppBundle\Interfaces\VoteInterface;
 
 class MovieTest extends TestCaseBase
 {
@@ -289,7 +289,7 @@ class MovieTest extends TestCaseBase
         $thumbsUp = $this->movieFree->getThumbsUp();
         $thumbsDown = $this->movieFree->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), IVote::THUMBS_UP));
+        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), VoteInterface::THUMBS_UP));
         $this->em->refresh($this->movieFree);
         $this->assertTrue($this->movieFree->getThumbsUp() === $thumbsUp + 1);
         $this->assertTrue($this->movieFree->getThumbsDown() === $thumbsDown);
@@ -297,7 +297,7 @@ class MovieTest extends TestCaseBase
         $thumbsUp = $this->movieFree->getThumbsUp();
         $thumbsDown = $this->movieFree->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), IVote::THUMBS_DOWN));
+        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), VoteInterface::THUMBS_DOWN));
         $this->em->refresh($this->movieFree);
         $this->assertTrue($this->movieFree->getThumbsUp() === $thumbsUp - 1);
         $this->assertTrue($this->movieFree->getThumbsDown() === $thumbsDown + 1);
@@ -305,7 +305,7 @@ class MovieTest extends TestCaseBase
         $thumbsUp = $this->movieFree->getThumbsUp();
         $thumbsDown = $this->movieFree->getThumbsDown();
 
-        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), IVote::THUMBS_UP));
+        $client->request('GET', sprintf('/movie/vote/%d/%d', $this->movieFree->getId(), VoteInterface::THUMBS_UP));
         $this->em->refresh($this->movieFree);
         $this->assertTrue($this->movieFree->getThumbsUp() === $thumbsUp + 1);
         $this->assertTrue($this->movieFree->getThumbsDown() === $thumbsDown - 1);

@@ -13,7 +13,7 @@ use AppBundle\Service\MovieVotingService;
 use AppBundle\Service\MovieStreamingService;
 use AppBundle\Service\MovieViewsCounterService;
 
-use AppBundle\Interfaces\IVote;
+use AppBundle\Interfaces\VoteInterface;
 
 use AppBundle\Util\FormErrors;
 
@@ -127,8 +127,8 @@ class MovieController extends Controller
             'commentForm' => $commentForm->createView(),
             'showPreview' => false,
             'showSettings' => $movieAccess->canModify($this->getUser(), $movie),
-            'VOTE_TYPE_THUMBS_UP' => IVote::THUMBS_UP,
-            'VOTE_TYPE_THUMBS_DOWN' => IVote::THUMBS_DOWN
+            'VOTE_TYPE_THUMBS_UP' => VoteInterface::THUMBS_UP,
+            'VOTE_TYPE_THUMBS_DOWN' => VoteInterface::THUMBS_DOWN
         ]);
     }
 
@@ -150,8 +150,8 @@ class MovieController extends Controller
             'comments' => $movie->getComments(),
             'showPreview' => true,
             'showSettings' => false,
-            'VOTE_TYPE_THUMBS_UP' => IVote::THUMBS_UP,
-            'VOTE_TYPE_THUMBS_DOWN' => IVote::THUMBS_DOWN
+            'VOTE_TYPE_THUMBS_UP' => VoteInterface::THUMBS_UP,
+            'VOTE_TYPE_THUMBS_DOWN' => VoteInterface::THUMBS_DOWN
         ]);
     }
 
