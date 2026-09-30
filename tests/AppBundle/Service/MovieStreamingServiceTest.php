@@ -28,7 +28,7 @@ class MovieStreamingServiceTest extends \PHPUnit_Framework_TestCase
         $response = $this->createResponse();
 
         $this->assertSame(200, $response->getStatusCode());
-        $this->assertSame('10', $response->headers->get('Content-Length'));
+        $this->assertEquals(10, $response->headers->get('Content-Length'));
         $this->assertSame('0123456789', $this->getResponseContent($response));
     }
 
@@ -38,7 +38,7 @@ class MovieStreamingServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(206, $response->getStatusCode());
         $this->assertSame('bytes 2-5/10', $response->headers->get('Content-Range'));
-        $this->assertSame('4', $response->headers->get('Content-Length'));
+        $this->assertEquals(4, $response->headers->get('Content-Length'));
         $this->assertSame('2345', $this->getResponseContent($response));
     }
 
