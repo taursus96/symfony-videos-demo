@@ -63,14 +63,8 @@ class DotpayMovieOrderResolverService
             return false;
         }
 
-        $wholeUnits = ltrim($matches[1], '0');
-        $fractionalUnits = str_pad(isset($matches[2]) ? $matches[2] : '', 2, '0');
-        $amountInMinorUnits = ltrim($wholeUnits . $fractionalUnits, '0');
-        if ($amountInMinorUnits === '') {
-            $amountInMinorUnits = '0';
-        }
-
-        return $movieOrder->getPrice() !== null && $amountInMinorUnits === (string) $movieOrder->getPrice();
+        return $movieOrder->getPrice() !== null
+            && (int) round((float) $operationAmount * 100) === $movieOrder->getPrice();
     }
 
     protected function getSignature(Request $request): string
