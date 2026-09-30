@@ -79,7 +79,7 @@ class MovieController extends Controller
     /**
      * @Route("/movie/stream/{id}", name="movie_stream", requirements={"id": "\d+"})
      */
-    public function movieStreamAction(Request $request, Movie $movie)
+    public function movieStreamAction(Request $request, Movie $movie): Response
     {
         /** @var MovieAccessService $movieAccess */
         $movieAccess = $this->get('app.movie_access');
@@ -91,9 +91,7 @@ class MovieController extends Controller
         }
 
         $moviePath = $this->getParameter('movies_directory') . '/' . $movie->getFile();
-        $response = $movieStreaming->getResponse($request, $moviePath);
-        $response->sendHeaders();
-        $response->sendContent();
+        return $movieStreaming->getResponse($request, $moviePath);
     }
 
     /**

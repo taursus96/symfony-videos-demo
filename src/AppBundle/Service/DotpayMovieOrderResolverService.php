@@ -58,7 +58,13 @@ class DotpayMovieOrderResolverService
 
     protected function checkOperationAmount(MovieOrder $movieOrder, Request $request): bool
     {
-        return $movieOrder->getPriceAsFloat() === $request->request->get('operation_amount');
+        $operationAmount = $request->request->get('operation_amount');
+        if (!is_scalar($operationAmount) || !preg_match('/\A([0-9]+)(?:\.([0-9]{1,2}))?\z/', (string) $operationAmount, $matches)) {
+            return false;
+        }
+
+        return $movieOrder->getPrice() !== null
+            && (int) round((float) $operationAmount * 100) === $movieOrder->getPrice();
     }
 
     protected function getSignature(Request $request): string
