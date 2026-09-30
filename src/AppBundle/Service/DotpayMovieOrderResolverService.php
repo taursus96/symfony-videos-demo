@@ -58,7 +58,19 @@ class DotpayMovieOrderResolverService
 
     protected function checkOperationAmount(MovieOrder $movieOrder, Request $request): bool
     {
-        return $movieOrder->getPriceAsFloat() === $request->request->get('operation_amount');
+        $operationAmount = $request->request->get('operation_amount');
+        if (!is_scalar($operationAmount) || !preg_match('/\A([0-9]+)(?:\.([0-9]{1,2}))?\z/', (string) $operationAmount, $matches)) {
+            return false;
+        }
+
+        $wholeUnits = ltrim($matches[1], '0');
+        $fractionalUnits = str_pad(isset($matches[2]) ? $matches[2] : '', 2, '0');
+        $amountInMinorUnits = ltrim($wholeUnits . $fractionalUnits, '0');
+        if ($amountInMinorUnits === '') {
+            $amountInMinorUnits = '0';
+        }
+
+        return $movieOrder->getPrice() !== null && $amountInMinorUnits === (string) $movieOrder->getPrice();
     }
 
     protected function getSignature(Request $request): string
