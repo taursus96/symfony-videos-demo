@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\User;
@@ -26,7 +27,7 @@ class MovieStreamingService
                 return $this->createPartialResponse($request, $range, $file);
                 break;
             case self::HTTP_RANGE_PROVIDED_AND_NOT_SATISFIABLE:
-                return $this->createRangeNotSatifiableResponse($file);
+                return $this->createRangeNotSatisfiableResponse($file);
                 break;
             case self::HTTP_RANGE_NOT_PROVIDED:
                 return $this->createWholeResponse($request, $range, $file);
@@ -37,30 +38,33 @@ class MovieStreamingService
     protected function getRange(Request $request, \SplFileObject $file): array
     {
         $httpRange = $request->server->get('HTTP_RANGE');
-        $isRangeSatisfiable = false;
+        $fileSize = $file->getSize();
         $range = [
             'start' => 0,
-            'end' => $file->getSize() - 1
+            'end' => $fileSize - 1
         ];
 
         if ($httpRange) {
-            $isRangeSatisfiable = true;
+            $isRangeSatisfiable = $fileSize > 0
+                && preg_match('/^bytes=(\d*)-(\d*)$/i', trim($httpRange), $matches)
+                && ($matches[1] !== '' || $matches[2] !== '');
 
-            if (preg_match('/bytes=\h*(\d+)-(\d*)[\D.*]?/i', $httpRange, $matches)) {
-                $range['start'] = intval($matches[1]);
-                if (!empty($matches[2])) {
-                    $range['end'] = intval($matches[2]);
+            if ($isRangeSatisfiable && $matches[1] === '') {
+                $suffixLength = (int) $matches[2];
+                $isRangeSatisfiable = $suffixLength > 0;
+                if ($isRangeSatisfiable) {
+                    $range['start'] = max(0, $fileSize - $suffixLength);
+                    $range['end'] = $fileSize - 1;
                 }
-            } else {
-                $isRangeSatisfiable = false;
+            } elseif ($isRangeSatisfiable) {
+                $range['start'] = (int) $matches[1];
+                $range['end'] = $matches[2] === '' ? $fileSize - 1 : min((int) $matches[2], $fileSize - 1);
+                $isRangeSatisfiable = $range['start'] < $fileSize && $range['start'] <= $range['end'];
             }
 
-            if ($range['start'] > $range['end']) {
-                $isRangeSatisfiable = false;
-            } elseif ($file->fseek($range['start']) !== 0) {
+            if ($isRangeSatisfiable && $file->fseek($range['start']) !== 0) {
                 $isRangeSatisfiable = false;
             }
-
             $range['type'] = $isRangeSatisfiable ? self::HTTP_RANGE_PROVIDED_AND_SATISFIABLE : self::HTTP_RANGE_PROVIDED_AND_NOT_SATISFIABLE;
         } else {
             $range['type'] = self::HTTP_RANGE_NOT_PROVIDED;
@@ -90,7 +94,7 @@ class MovieStreamingService
         return $response;
     }
 
-    protected function createRangeNotSatifiableResponse(\SplFileObject $file): Response
+    protected function createRangeNotSatisfiableResponse(\SplFileObject $file): Response
     {
         $response = new Response();
         $response->setStatusCode(StreamedResponse::HTTP_REQUESTED_RANGE_NOT_SATISFIABLE);
@@ -107,16 +111,15 @@ class MovieStreamingService
         $response->prepare($request);
 
         $response->setCallback(function () use ($file, $range) {
-            $buffer = 1024 * 8;
-
-            while (!$file->eof() && ($offset = $file->ftell() < $range['end'])) {
+            while (!$file->eof() && $file->ftell() <= $range['end']) {
                 set_time_limit(0);
 
-                if ($offset + $buffer > $range['end']) {
-                    $buffer = $range['end'] + 1 - $offset;
+                $bytesRemaining = $range['end'] - $file->ftell() + 1;
+                $chunk = $file->fread(min(1024 * 8, $bytesRemaining));
+                if ($chunk === '') {
+                    break;
                 }
-
-                echo $file->fread($buffer);
+                echo $chunk;
             }
 
             $file = null;
@@ -125,11 +128,11 @@ class MovieStreamingService
 
     protected function getMovieFile(string $moviePath): \SplFileObject
     {
-        $file = new \SplFileObject($moviePath);
-
-        if (!$file->isFile()) {
-            return null;
+        if (!is_file($moviePath) || !is_readable($moviePath)) {
+            throw new NotFoundHttpException();
         }
+
+        $file = new \SplFileObject($moviePath);
 
         return $file;
     }
